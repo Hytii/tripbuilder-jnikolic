@@ -2,8 +2,8 @@
 
 namespace App\Console;
 
-use Console\Commands\RefreshAirports;
-use Console\Commands\SeedTest;
+use App\Console\Commands\RefreshAirports;
+use App\Console\Commands\SeedTest;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 

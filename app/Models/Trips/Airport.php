@@ -3,6 +3,7 @@
 namespace App\Models\Trips;
 
 use App\Traits\TBModelable;
+use App\Traits\Validable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,12 +16,17 @@ use Illuminate\Database\Eloquent\Model;
 class Airport extends Model
 {
 
-    use TBModelable;
+    use TBModelable, Validable;
 
     //******************************
     //region//*** ATTRIBUTES
     //******************************
     protected $fillable = [ 'code', 'name' ];
+
+    protected $rules = [
+        'name' => 'required|max:255|string',
+        'code' => 'required|max:3|min:3|string',
+    ];
 
     //endregion
     //******************************

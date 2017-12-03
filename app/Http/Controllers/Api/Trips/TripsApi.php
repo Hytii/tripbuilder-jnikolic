@@ -6,6 +6,11 @@ use App\Http\Controllers\Api\ApiController;
 use App\Models\Trips\Flight;
 use App\Models\Trips\Trip;
 use App\Services\Trips\TripsService;
+use App\Http\Requests\Api\Trips\DestroyTripsRequest;
+use App\Http\Requests\Api\Trips\IndexTripsRequest;
+use App\Http\Requests\Api\Trips\ShowTripsRequest;
+use App\Http\Requests\Api\Trips\StoreTripsRequest;
+use App\Http\Requests\Api\Trips\UpdateTripsRequest;
 use Illuminate\Http\Request;
 use function response;
 
@@ -24,30 +29,58 @@ class TripsApi extends ApiController
      */
     private $tripsService;
 
+    /**
+     * TripsApi constructor.
+     *
+     * @param \App\Services\Trips\TripsService $tripsService
+     */
     public function __construct(TripsService $tripsService)
     {
 
         $this->tripsService = $tripsService;
     }
 
-    public function index()
+    /**
+     * @param \App\Http\Requests\Api\Trips\IndexTripsRequest $request
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function index(IndexTripsRequest $request)
     {
         return $this->tripsService->search();
     }
 
-    public function show(Trip $trip)
+    /**
+     * @param \App\Http\Requests\Api\Trips\ShowTripsRequest $request
+     * @param \App\Models\Trips\Trip                    $trip
+     *
+     * @return \App\Models\Trips\Trip
+     */
+    public function show(ShowTripsRequest $request, Trip $trip)
     {
         return $trip;
     }
 
-    public function store(Request $request)
+    /**
+     *
+     * @param \App\Http\Requests\Api\Trips\StoreTripsRequest $request
+     *
+     * @return \App\Models\Trips\Trip
+     */
+    public function store(StoreTripsRequest $request)
     {
         $trip = new Trip($request->input());
 
         return $this->tripsService->store($trip);
     }
 
-    public function update(Request $request, Trip $trip)
+    /**
+     * @param \App\Http\Requests\Api\Trips\UpdateTripsRequest $request
+     * @param \App\Models\Trips\Trip                      $trip
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(UpdateTripsRequest $request, Trip $trip)
     {
         $trip->fill($request->input());
 
@@ -56,7 +89,13 @@ class TripsApi extends ApiController
         return response()->json($trip->toJson());
     }
 
-    public function destroy(Trip $trip)
+    /**
+     * @param \App\Http\Requests\Api\Trips\DestroyTripsRequest $request
+     * @param \App\Models\Trips\Trip                       $trip
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(DestroyTripsRequest $request, Trip $trip)
     {
         $this->tripsService->destroy($trip);
 

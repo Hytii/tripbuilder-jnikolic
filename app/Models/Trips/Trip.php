@@ -3,6 +3,7 @@
 namespace App\Models\Trips;
 
 use App\Traits\TBModelable;
+use App\Traits\Validable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,13 +16,17 @@ use Illuminate\Database\Eloquent\Model;
 class Trip extends Model
 {
 
-    use TBModelable;
+    use TBModelable, Validable;
 
     //******************************
     //region//*** ATTRIBUTES
     //******************************
     protected $fillable = [
         'number',
+    ];
+
+    protected $rules = [
+        'number' => 'required|max:255|string',
     ];
 
     //endregion

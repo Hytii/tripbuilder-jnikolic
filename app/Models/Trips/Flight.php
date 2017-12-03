@@ -3,6 +3,7 @@
 namespace App\Models\Trips;
 
 use App\Traits\TBModelable;
+use App\Traits\Validable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
 class Flight extends Model
 {
 
-    use TBModelable;
+    use TBModelable, Validable;
 
     //******************************
     //region//*** ATTRIBUTES
@@ -23,6 +24,13 @@ class Flight extends Model
     protected $fillable = [
         'to_id',
         'from_id',
+    ];
+
+    protected $rules = [
+        'number'  => 'required|string',
+        'trip_id' => 'required|exists:trips,id',
+        'to_id'   => 'required|different:from_id|exists:airports,id',
+        'from_id' => 'required|different:to_id|exists:airports,id',
     ];
 
     //endregion

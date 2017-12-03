@@ -13,10 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')
-     ->get('/user', function (Request $request) {
-         return $request->user();
-     });
-Route::get('airports', [ 'as' => 'airports.index', 'uses' => 'Trips\AirportsApi@index' ]);
-Route::resource('trips', 'Trips\TripsApi');
-Route::resource('trips.flights', 'Trips\FlightsApi');
+//Route::middleware('auth:api')
+//     ->get('/user', function (Request $request) {
+//         return $request->user();
+//     });
+Route::get('airports', [ 'as' => 'airports.index', 'uses' => 'Airports\AirportsApi@index' ]);
+Route::resource('trips', 'Trips\TripsApi', [ 'except' => [ 'edit' ] ]);
+Route::resource('trips.flights', 'Trips\FlightsApi', [ 'except' => [ 'edit', 'update' ] ]);

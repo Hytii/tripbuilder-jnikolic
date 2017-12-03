@@ -6,6 +6,10 @@ use App\Http\Controllers\Api\ApiController;
 use App\Models\Trips\Flight;
 use App\Models\Trips\Trip;
 use App\Services\Trips\FlightsService;
+use App\Http\Requests\Api\Trips\Flights\DestroyFlightRequest;
+use App\Http\Requests\Api\Trips\Flights\IndexFlightsRequest;
+use App\Http\Requests\Api\Trips\Flights\ShowFlightRequest;
+use App\Http\Requests\Api\Trips\Flights\StoreFlightRequest;
 use Illuminate\Http\Request;
 
 /**
@@ -35,34 +39,36 @@ class FlightsApi extends ApiController
     }
 
     /**
-     * @param \App\Models\Trips\Trip $trip
+     * @param \App\Http\Requests\Api\Trips\Flights\IndexFlightsRequest $request
+     * @param \App\Models\Trips\Trip                                   $trip
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function index(Trip $trip)
+    public function index(IndexFlightsRequest $request, Trip $trip)
     {
         return $trip->flights()
                     ->get();
     }
 
     /**
-     * @param \App\Models\Trips\Trip   $trip
-     * @param \App\Models\Trips\Flight $flight
+     * @param \App\Http\Requests\Api\Trips\Flights\ShowFlightRequest $request
+     * @param \App\Models\Trips\Trip                                 $trip
+     * @param \App\Models\Trips\Flight                               $flight
      *
      * @return \App\Models\Trips\Flight
      */
-    public function show(Trip $trip, Flight $flight)
+    public function show(ShowFlightRequest $request, Trip $trip, Flight $flight)
     {
         return $flight;
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Trips\Trip   $trip
+     * @param \App\Http\Requests\Api\Trips\Flights\StoreFlightRequest $request
+     * @param \App\Models\Trips\Trip                                  $trip
      *
      * @return mixed
      */
-    public function store(Request $request, Trip $trip)
+    public function store(StoreFlightRequest $request, Trip $trip)
     {
         $flight = new Flight($request->input());
 
@@ -70,27 +76,13 @@ class FlightsApi extends ApiController
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Trips\Trip   $trip
-     * @param \App\Models\Trips\Flight $flight
-     *
-     * @return mixed
-     */
-    public function update(Request $request, Trip $trip, Flight $flight)
-    {
-        $flight->fill($request->input());
-
-        return $this->flightsService->update($trip, $flight);
-    }
-
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Trips\Trip   $trip
-     * @param \App\Models\Trips\Flight $flight
+     * @param \App\Http\Requests\Api\Trips\Flights\DestroyFlightRequest $request
+     * @param \App\Models\Trips\Trip                                    $trip
+     * @param \App\Models\Trips\Flight                                  $flight
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Request $request, Trip $trip, Flight $flight)
+    public function destroy(DestroyFlightRequest $request, Trip $trip, Flight $flight)
     {
         $this->flightsService->destroy($trip, $flight);
 

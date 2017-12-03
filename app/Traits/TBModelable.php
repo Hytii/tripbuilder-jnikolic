@@ -4,7 +4,7 @@ namespace App\Traits;
 
 /**
  * Trait TBModelable
- * Allow to share generic methods accross all models
+ * Allow to share generic methods across all models
  *
  * @package App\Traits
  */

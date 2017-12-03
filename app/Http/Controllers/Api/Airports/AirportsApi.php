@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api\Trips;
+namespace App\Http\Controllers\Api\Airports;
 
 use App\Http\Controllers\Api\ApiController;
 use App\Services\Trips\AirportsService;
+use App\Http\Requests\Api\IndexAirportsRequest;
 
 /**
  * Class AirportsController
@@ -20,13 +21,24 @@ class AirportsApi extends ApiController
      */
     private $airportsService;
 
+    /**
+     * AirportsApi constructor.
+     *
+     * @param \App\Services\Trips\AirportsService $airportsService
+     */
     public function __construct(AirportsService $airportsService)
     {
 
         $this->airportsService = $airportsService;
     }
 
-    public function index()
+    /**
+     *
+     * @param \App\Http\Requests\Api\IndexAirportsRequest $request
+     *
+     * @return string
+     */
+    public function index(IndexAirportsRequest $request)
     {
         return $this->airportsService->search()
                                      ->toJson();

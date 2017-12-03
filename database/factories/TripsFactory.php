@@ -13,7 +13,8 @@ $factory->define(Trip::class, function (Faker $faker) {
 
 $factory->define(Airport::class, function (Faker $faker) {
     return [
-        'code' => strtoupper(substr(md5(microtime()), rand(0, 26), 3)),
+        'code' => $faker->unique()
+                        ->lexify('???'),
         'name' => $faker->colorName(),
     ];
 });

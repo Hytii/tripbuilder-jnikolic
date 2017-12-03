@@ -50,26 +50,10 @@ class FlightsService
      * @param \App\Models\Trips\Trip   $trip
      * @param \App\Models\Trips\Flight $flight
      *
-     * @return \App\Models\Trips\Flight
-     */
-    public function update(Trip $trip, Flight $flight): Flight
-    {
-        $this->save($trip, $flight);
-
-        return $flight;
-    }
-
-    /**
-     * @param \App\Models\Trips\Trip   $trip
-     * @param \App\Models\Trips\Flight $flight
-     *
      * @return bool
      */
     public function destroy(Trip $trip, Flight $flight): bool
     {
-        $trip->flights()
-             ->detach($flight);
-
         return $flight->delete();
     }
 
@@ -98,7 +82,7 @@ class FlightsService
      */
     private function genNumber(Flight $flight)
     {
-        $flight->number = 'TR'.rand(1, 9000);
+        $flight->number = 'FL'.rand(1, 9000);
     }
     //endregion
     //******************************

@@ -1,6 +1,6 @@
 <?php
 
-namespace Console\Commands;
+namespace App\Console\Commands;
 
 use App\Services\Trips\AirportsService;
 use Illuminate\Console\Command;
