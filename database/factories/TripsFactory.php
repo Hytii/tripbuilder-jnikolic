@@ -13,15 +13,16 @@ $factory->define(Trip::class, function (Faker $faker) {
 
 $factory->define(Airport::class, function (Faker $faker) {
     return [
-        'iata_code' => $faker->text(3),
+        'code' => strtoupper(substr(md5(microtime()), rand(0, 26), 3)),
+        'name' => $faker->colorName(),
     ];
 });
 
 $factory->define(Flight::class, function (Faker $faker) {
     return [
-        'to_id'   => Airport::count() ? Airport::inRandomOrder()
-                                               ->first()->id : null,
-        'from_id' => Airport::count() ? Airport::inRandomOrder()
-                                               ->first()->id : null,
+        'to_id'   => Airport::count() > 0 ? Airport::inRandomOrder()
+                                                   ->first()->id : null,
+        'from_id' => Airport::count() > 0 ? Airport::inRandomOrder()
+                                                   ->first()->id : null,
     ];
 });
