@@ -18,5 +18,5 @@ use Illuminate\Http\Request;
 //         return $request->user();
 //     });
 Route::get('airports', [ 'as' => 'airports.index', 'uses' => 'Airports\AirportsApi@index' ]);
-Route::resource('trips', 'Trips\TripsApi', [ 'except' => [ 'edit' ] ]);
-Route::resource('trips.flights', 'Trips\FlightsApi', [ 'except' => [ 'edit', 'update' ] ]);
+Route::resource('trips', 'Trips\TripsApi', [ 'except' => [ 'create', 'edit' ] ]);
+Route::resource('trips.flights', 'Trips\FlightsApi', [ 'except' => [ 'create', 'edit', 'update' ] ]);
