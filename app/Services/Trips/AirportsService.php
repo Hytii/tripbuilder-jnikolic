@@ -29,4 +29,28 @@ class AirportsService
                       ->get();
     }
 
+    public function refresh($airports = array())
+    {
+        try {
+            $this->openTransaction();
+
+            foreach ( $airports as $airport_data ) {
+                $airport = Airport::firstOrNew([ 'code' => $airport_data['code'] ]);
+
+                $airport->name = $airport_data['name'];
+                $this->save($airport);
+            }
+
+            $this->commitTransaction();
+        } catch (\Exception $ex) {
+            $this->rollbackTransaction();
+            throw $ex;
+        }
+
+    }
+
+    private function save(Airport $airport)
+    {
+        $airport->save();
+    }
 }
