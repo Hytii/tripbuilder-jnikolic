@@ -20,6 +20,7 @@ class Airport extends Model
     //******************************
     //region//*** ATTRIBUTES
     //******************************
+    protected $fillable = [ 'code', 'name' ];
 
     //endregion
     //******************************

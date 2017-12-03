@@ -20,6 +20,9 @@ class Trip extends Model
     //******************************
     //region//*** ATTRIBUTES
     //******************************
+    protected $fillable = [
+        'number',
+    ];
 
     //endregion
     //******************************
@@ -29,8 +32,7 @@ class Trip extends Model
     //******************************
     public function flights()
     {
-        return $this->belongsToMany(Flight::class)
-                    ->withTimestamps();
+        return $this->hasMany(Flight::class);
     }
     //endregion
     //******************************
