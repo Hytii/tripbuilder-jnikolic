@@ -14,7 +14,7 @@
             </div>
             <div class="links">
                 <a href="https://github.com/jeremynikolic/tripbuilder">Github</a>
-
+                <a href="/api/doc">Documentation</a>
             </div>
         </div>
     </div>
