@@ -3,7 +3,7 @@
 Second step in the hiring process, this project respond to MomentumTravel assesment by Jeremy Nikolic.
 
 ## Functionnalities
-
+Full documentation here : [Documentation](https://tripbuilder-jnikolic.herokuapp.com/api/docs)
 ```
 * Airports
     * Alphabetical list of airports
@@ -51,10 +51,7 @@ IATA_CODE_API_URL=http://iatacodes.org/api/
 	--with_progression : if present displays progression infos
 ```
 
-## Tests
-
-
 ## Vulnerabilities
 
-Use at your own risks.
+This is not a finalised application, it is just an aptitude test. Use at your own risks
 
