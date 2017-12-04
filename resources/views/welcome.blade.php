@@ -13,8 +13,8 @@
                 API base Url : <a href="https://tripbuilder-jnikolic.herokuapp.com/api/">https://tripbuilder-jnikolic.herokuapp.com/api/</a>
             </div>
             <div class="links">
-                <a href="https://github.com/jeremynikolic/tripbuilder">Github</a>
-                <a href="/api/doc">Documentation</a>
+                <a href="https://github.com/jeremynikolic/tripbuilder" target="_blank">Github</a>
+                <a href="/api/docs">Documentation</a>
             </div>
         </div>
     </div>
