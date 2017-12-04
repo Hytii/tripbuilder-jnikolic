@@ -27,3 +27,12 @@ $factory->define(Flight::class, function (Faker $faker) {
                                                    ->first()->id : null,
     ];
 });
+
+$factory->state(Flight::class, 'code', function (Faker $faker) {
+    return [
+        'to'   => Airport::count() > 0 ? Airport::inRandomOrder()
+                                                ->first()->code : null,
+        'from' => Airport::count() > 0 ? Airport::inRandomOrder()
+                                                ->first()->code : null,
+    ];
+});

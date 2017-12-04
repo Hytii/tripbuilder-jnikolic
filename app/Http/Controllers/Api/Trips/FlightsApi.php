@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Trips;
 use App\Http\Controllers\Api\ApiController;
 use App\Models\Trips\Flight;
 use App\Models\Trips\Trip;
+use App\Services\Trips\AirportsService;
 use App\Services\Trips\FlightsService;
 use App\Http\Requests\Api\Trips\Flights\DestroyFlightRequest;
 use App\Http\Requests\Api\Trips\Flights\IndexFlightsRequest;
@@ -28,14 +29,21 @@ class FlightsApi extends ApiController
     private $flightsService;
 
     /**
+     * @var \App\Services\Trips\AirportsService
+     */
+    private $airportsService;
+
+    /**
      * FlightsApi constructor.
      *
-     * @param \App\Services\Trips\FlightsService $flightsService
+     * @param \App\Services\Trips\FlightsService  $flightsService
+     * @param \App\Services\Trips\AirportsService $airportsService
      */
-    public function __construct(FlightsService $flightsService)
+    public function __construct(FlightsService $flightsService, AirportsService $airportsService)
     {
 
         $this->flightsService = $flightsService;
+        $this->airportsService = $airportsService;
     }
 
     /**
@@ -70,7 +78,12 @@ class FlightsApi extends ApiController
      */
     public function store(StoreFlightRequest $request, Trip $trip)
     {
-        $flight = new Flight($request->input());
+        $flight = new Flight();
+
+        $to = $this->airportsService->getByCode($request->input('to'));
+        $from = $this->airportsService->getByCode($request->input('from'));
+        $flight->to_id = $to->id;
+        $flight->from_id = $from->id;
 
         return $this->flightsService->store($trip, $flight);
     }

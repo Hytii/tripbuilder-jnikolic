@@ -16,7 +16,12 @@ use Illuminate\Support\Collection;
 class TripsService
 {
 
+    //******************************
+    //region//*** PUBLIC FUNCTIONS
+    //******************************
     /**
+     * Trip collection
+     *
      * @return \Illuminate\Support\Collection
      */
     public function search(): Collection
@@ -26,6 +31,8 @@ class TripsService
     }
 
     /**
+     * Store a trip
+     *
      * @param \App\Models\Trips\Trip $trip
      *
      * @return \App\Models\Trips\Trip
@@ -36,6 +43,8 @@ class TripsService
     }
 
     /**
+     * Update a trip
+     *
      * @param \App\Models\Trips\Trip $trip
      *
      * @return \App\Models\Trips\Trip
@@ -47,6 +56,8 @@ class TripsService
     }
 
     /**
+     * Destroy a trip
+     *
      * @param \App\Models\Trips\Trip $trip
      *
      * @return bool
@@ -55,8 +66,16 @@ class TripsService
     {
         return $trip->delete();
     }
+    //endregion
+    //******************************
+
+    //******************************
+    //region//*** PRIVATE FUNCTIONS
+    //******************************
 
     /**
+     * Save Trip information (Create or Update)
+     *
      * @param \App\Models\Trips\Trip $trip
      *
      * @return \App\Models\Trips\Trip
@@ -65,6 +84,8 @@ class TripsService
     {
         $trip->save();
 
-        return $trip;
+        return Trip::find($trip->id);
     }
+    //endregion
+    //******************************
 }

@@ -19,7 +19,7 @@ class AirportsService
     use DbTransactionnable;
 
     /**
-     * Get Collection of Airports ordered alphabetically
+     * Collection of Airports ordered alphabetically
      *
      * @return \Illuminate\Support\Collection
      */
@@ -29,6 +29,13 @@ class AirportsService
                       ->get();
     }
 
+    /**
+     * Refresh airport table content with array collection of airport data
+     *
+     * @param array $airports
+     *
+     * @throws \Exception
+     */
     public function refresh($airports = array())
     {
         try {
@@ -49,6 +56,24 @@ class AirportsService
 
     }
 
+    /**
+     * Find Airport via specified Iata code
+     *
+     * @param $code
+     *
+     * @return mixed
+     */
+    public function getByCode($code)
+    {
+        return Airport::where('code', $code)
+                      ->first();
+    }
+
+    /**
+     * Save Airport information (Create or Update)
+     *
+     * @param \App\Models\Trips\Airport $airport
+     */
     private function save(Airport $airport)
     {
         $airport->save();

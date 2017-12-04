@@ -21,11 +21,26 @@ class Flight extends Model
     //******************************
     //region//*** ATTRIBUTES
     //******************************
-    protected $fillable = [
-        'to_id',
-        'from_id',
-    ];
 
+    /**
+     * Hidden field for arrays
+     *
+     * @var array
+     */
+    protected $hidden = [ 'id', 'trip_id', 'from_id', 'to_id', 'created_at', 'updated_at' ];
+
+    /**
+     * Mass assignble fields
+     *
+     * @var array
+     */
+    protected $fillable = [];
+
+    /**
+     * Validation rules
+     *
+     * @var array
+     */
     protected $rules = [
         'number'  => 'required|string',
         'trip_id' => 'required|exists:trips,id',
@@ -33,22 +48,64 @@ class Flight extends Model
         'from_id' => 'required|different:to_id|exists:airports,id',
     ];
 
+    /**
+     * Automatic eager loaded relationships
+     *
+     * @var array
+     */
+    protected $with = [
+        'from',
+        'to',
+    ];
+
+    //endregion
+    //******************************
+
+    //******************************
+    //region//*** SETTINGS
+    //******************************
+
+    /**
+     * Route key used for binding
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'number';
+    }
+
     //endregion
     //******************************
 
     //******************************
     //region//*** RELATIONSHIPS
     //******************************
-    public function trips()
+    /**
+     * BelongsTo Trip relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function trip()
     {
         return $this->belongsTo(Trip::class);
     }
 
+    /**
+     * BelongsTo Airport relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function from()
     {
         return $this->belongsTo(Airport::class, 'from_id');
     }
 
+    /**
+     * BelongsTo Airport relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function to()
     {
         return $this->belongsTo(Airport::class, 'to_id');

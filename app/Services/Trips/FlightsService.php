@@ -21,6 +21,8 @@ class FlightsService
     //******************************
 
     /**
+     * Flights collection for specified trip
+     *
      * @param \App\Models\Trips\Trip $trip
      *
      * @return \Illuminate\Support\Collection
@@ -32,6 +34,8 @@ class FlightsService
     }
 
     /**
+     * Store Flight for specified Trip
+     *
      * @param \App\Models\Trips\Trip   $trip
      * @param \App\Models\Trips\Flight $flight
      *
@@ -41,12 +45,14 @@ class FlightsService
     {
         $this->genNumber($flight);
         $flight->trip_id = $trip->id;
-        $flight->save();
 
-        return $flight;
+        return $this->save($trip, $flight);
+
     }
 
     /**
+     * Destroy Flight
+     *
      * @param \App\Models\Trips\Trip   $trip
      * @param \App\Models\Trips\Flight $flight
      *
@@ -65,6 +71,8 @@ class FlightsService
     //******************************
 
     /**
+     * Save Flight information (Create or Update)
+     *
      * @param \App\Models\Trips\Trip   $trip
      * @param \App\Models\Trips\Flight $flight
      *
@@ -74,10 +82,12 @@ class FlightsService
     {
         $flight->save();
 
-        return $flight;
+        return Flight::find($flight->id);
     }
 
     /**
+     * Generate Flight number
+     *
      * @param \App\Models\Trips\Flight $flight
      */
     private function genNumber(Flight $flight)

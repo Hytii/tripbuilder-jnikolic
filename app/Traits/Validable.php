@@ -63,7 +63,7 @@ trait Validable
     }
 
     /**
-     * Apply prefix to validation rule
+     * Get custom prefix application function name for specified rule if exists
      *
      * @param $validationRule
      *

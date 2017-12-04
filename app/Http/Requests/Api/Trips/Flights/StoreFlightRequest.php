@@ -22,6 +22,9 @@ class StoreFlightRequest extends FormRequest
 
     public function rules()
     {
-        return (new Flight)->getRules([ 'number', 'trip_id' ]);
+        return [
+            'to'   => 'required|different:from|exists:airports,code',
+            'from' => 'required|different:to|exists:airports,code',
+        ];
     }
 }
