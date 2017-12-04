@@ -49,7 +49,10 @@ IATA_CODE_API_URL=http://iatacodes.org/api/
 	
 	Options:
 	--with_progression : if present displays progression infos
+	--limit=# : limit the number of airports to be refreshed (useful for heroku limitation of 10,000 db rows in dev mode)
 ```
+## Tests
+Unit tests are present for the different functionnalities
 
 ## Vulnerabilities
 
