@@ -42,14 +42,17 @@ class FlightsTest extends TestCase
     public function testStore()
     {
         $trip = $this->createTrip();
-        $flight = factory(Flight::class)->make();
+        $flight = factory(Flight::class)
+            ->states('code')
+            ->make();
 
         $response = $this->json('POST', route('trips.flights.store', [ $trip ]), $flight->toArray());
 
+        $flight = $trip->flights()
+                       ->first()
+                       ->load([ 'to', 'from' ]);
         $response->assertStatus(200)
-                 ->assertJson($trip->flights()
-                                   ->first()
-                                   ->toArray());
+                 ->assertJson($flight->toArray());
     }
 
     public function testShow()

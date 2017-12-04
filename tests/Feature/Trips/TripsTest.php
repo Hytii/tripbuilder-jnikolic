@@ -36,7 +36,7 @@ class TripsTest extends TestCase
 
         $response->assertStatus(200);
 
-        $trip = Trip::find($response->json()['id']);
+        $trip = Trip::where('number', $response->json()['number']);
 
         $this->assertNotNull($trip);
     }
